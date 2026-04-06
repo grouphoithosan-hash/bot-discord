@@ -178,27 +178,6 @@ ephemeral: true
 }
 });
 
-if (interaction.customId.startsWith("giveaway_")) {
-  const giveaway = require("./giveaway.js");
-
-  const messageId = interaction.message.id;
-  const userId = interaction.user.id;
-
-  const result = giveaway.joinGiveaway(messageId, userId);
-
-  if (!result.ok) {
-    return interaction.reply({
-      content: result.message,
-      ephemeral: true
-    });
-  }
-
-  return interaction.reply({
-    content: "🎉 Bạn đã tham gia giveaway!",
-    ephemeral: true
-  });
-}
-
 // =========================
 // ✅ FIX LOGIN (CHỈ 1 LẦN)
 
