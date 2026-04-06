@@ -184,34 +184,27 @@ return;
 // 🎉 GIVEAWAY BUTTON FIX
 if (interaction.customId.startsWith("giveaway")) {
 try {
-
-// CHỐNG TIMEOUT
-await interaction.deferReply({ ephemeral: true });
-
-// gọi handler nếu có
+// nếu file giveaway.js có handler riêng
 if (giveaway.handleButton) {
-return await giveaway.handleButton(interaction);
+return giveaway.handleButton(interaction);
 }
 
-return interaction.editReply("🎉 Giveaway button hoạt động!");
-
-} catch (err) {
-console.error("GIVEAWAY ERROR:", err);
-
-if (interaction.replied || interaction.deferred) {
-return interaction.editReply("❌ Giveaway lỗi rồi!");
-} else {
+// fallback nếu module không có handler
 return interaction.reply({
-content: "❌ Giveaway lỗi rồi!",
+content: "🎉 Bạn đã bấm nút giveaway!",
+ephemeral: true
+});
+} catch (err) {
+console.error(err);
+return interaction.reply({
+content: "❌ Giveaway button bị lỗi!",
 ephemeral: true
 });
 }
 }
-}
 
+});
 
-// =========================
-// ✅ FIX LOGIN (CHỈ 1 LẦN)
 
 console.log("TOKEN:", process.env.TOKEN);
 client.login(process.env.TOKEN);
