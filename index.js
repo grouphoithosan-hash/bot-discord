@@ -184,26 +184,31 @@ return;
 // 🎉 GIVEAWAY BUTTON FIX
 if (interaction.customId.startsWith("giveaway")) {
 try {
-// nếu file giveaway.js có handler riêng
+
+// CHỐNG TIMEOUT
+await interaction.deferReply({ ephemeral: true });
+
+// gọi handler nếu có
 if (giveaway.handleButton) {
-return giveaway.handleButton(interaction);
+return await giveaway.handleButton(interaction);
 }
 
-// fallback nếu module không có handler
-return interaction.reply({
-content: "🎉 Bạn đã bấm nút giveaway!",
-ephemeral: true
-});
+return interaction.editReply("🎉 Giveaway button hoạt động!");
+
 } catch (err) {
-console.error(err);
+console.error("GIVEAWAY ERROR:", err);
+
+if (interaction.replied || interaction.deferred) {
+return interaction.editReply("❌ Giveaway lỗi rồi!");
+} else {
 return interaction.reply({
-content: "❌ Giveaway button bị lỗi!",
+content: "❌ Giveaway lỗi rồi!",
 ephemeral: true
 });
 }
 }
+}
 
-});
 
 // =========================
 // ✅ FIX LOGIN (CHỈ 1 LẦN)
