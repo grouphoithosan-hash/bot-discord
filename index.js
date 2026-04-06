@@ -168,42 +168,35 @@ return message.reply({ embeds: [embed], components: [row] });
 // ✅ FIX BUTTON (THÊM MỚI)
 
 client.on("interactionCreate", async (interaction) => {
-if (!interaction.isButton()) return;
+  if (!interaction.isButton()) return;
 
-// =========================
-// APPEAL BUTTON
-if (interaction.customId === "appeal") {
-await interaction.reply({
-content: "📩 Liên hệ admin để kháng cáo nhé!",
-ephemeral: true
-});
-return;
-}
+  // =====================
+  // 📩 APPEAL BUTTON
 
-// =========================
-// 🎉 GIVEAWAY BUTTON FIX
-if (interaction.customId.startsWith("giveaway")) {
-try {
-// nếu file giveaway.js có handler riêng
-if (giveaway.handleButton) {
-return giveaway.handleButton(interaction);
-}
+  if (interaction.customId === "appeal") {
+    return interaction.reply({
+      content: "📩 Liên hệ admin để kháng cáo nhé!",
+      ephemeral: true
+    });
+  }
 
-// fallback nếu module không có handler
-return interaction.reply({
-content: "🎉 Bạn đã bấm nút giveaway!",
-ephemeral: true
-});
-} catch (err) {
-console.error(err);
-return interaction.reply({
-content: "❌ Giveaway button bị lỗi!",
-ephemeral: true
-});
-}
-}
+  // =====================
+  // 🎁 GIVEAWAY BUTTON FIX
+
+  if (interaction.customId === "join_giveaway") {
+    try {
+      return giveaway.handleJoin(interaction);
+    } catch (err) {
+      console.error(err);
+      return interaction.reply({
+        content: "❌ Giveaway bị lỗi!",
+        ephemeral: true
+      });
+    }
+  }
 
 });
+
 
 
 console.log("TOKEN:", process.env.TOKEN);
