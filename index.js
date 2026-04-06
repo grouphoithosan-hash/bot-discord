@@ -165,7 +165,21 @@ return message.reply({ embeds: [embed], components: [row] });
 });
 
 // =========================
+// ✅ FIX BUTTON (THÊM MỚI)
+
+client.on("interactionCreate", async (interaction) => {
+if (!interaction.isButton()) return;
+
+if (interaction.customId === "appeal") {
+await interaction.reply({
+content: "📩 Liên hệ admin để kháng cáo nhé!",
+ephemeral: true
+});
+}
+});
+
+// =========================
+// ✅ FIX LOGIN (CHỈ 1 LẦN)
 
 console.log("TOKEN:", process.env.TOKEN);
-client.login(process.env.TOKEN);console.log("TOKEN:", process.env.TOKEN);
 client.login(process.env.TOKEN);
