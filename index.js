@@ -170,12 +170,39 @@ return message.reply({ embeds: [embed], components: [row] });
 client.on("interactionCreate", async (interaction) => {
 if (!interaction.isButton()) return;
 
+// =========================
+// APPEAL BUTTON
 if (interaction.customId === "appeal") {
 await interaction.reply({
 content: "📩 Liên hệ admin để kháng cáo nhé!",
 ephemeral: true
 });
+return;
 }
+
+// =========================
+// 🎉 GIVEAWAY BUTTON FIX
+if (interaction.customId.startsWith("giveaway")) {
+try {
+// nếu file giveaway.js có handler riêng
+if (giveaway.handleButton) {
+return giveaway.handleButton(interaction);
+}
+
+// fallback nếu module không có handler
+return interaction.reply({
+content: "🎉 Bạn đã bấm nút giveaway!",
+ephemeral: true
+});
+} catch (err) {
+console.error(err);
+return interaction.reply({
+content: "❌ Giveaway button bị lỗi!",
+ephemeral: true
+});
+}
+}
+
 });
 
 // =========================
