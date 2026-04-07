@@ -96,28 +96,6 @@ if (await banSystem.checkBan(message)) return;
 const args = message.content.slice(PREFIX.length).trim().split(/ +/);
 const cmd = args.shift().toLowerCase();
 
- client.on("messageCreate", async (message) => {
-  if (message.author.bot) return;
-
-  const prefix = ".";
-
-  if (!message.content.startsWith(prefix)) return;
-
-  const args = message.content.slice(prefix.length).trim().split(/ +/);
-  const command = args.shift().toLowerCase();
-
-  // =========================
-  // COMMANDS
-
-  if (command === "ncheckvar") {
-    return ncheckvar.execute(message, args);
-  }
-
-  if (command === "nketqua") {
-    return nketqua.execute(message, args);
-  }
-});
- 
 // BAN
 if (cmd === "nban") return banSystem.handleBan(message, args);
 if (cmd === "nunban") return banSystem.handleUnban(message, args);
@@ -136,6 +114,8 @@ if (cmd === "ncoin") return ncoinCommand.execute(message, coins, tickets, dollar
 if (cmd === "ntop") return ntopCommand.execute(message);
 if (cmd === "nme") return nmeCommand.execute(message);
 if (cmd === "ngive") return ngiveCommand.execute(message, args, coins, tickets, saveCoins, saveTickets);
+if (cmd === "ncheckvar") return ncheckvar.execute(message, args);
+if (cmd === "nketqua") return nketqua.execute(message, args);
 
 // CODE
 if (cmd === "ncreatecode") return ncreatecodeCommand.execute(message, args);
