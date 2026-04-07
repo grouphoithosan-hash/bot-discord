@@ -16,6 +16,7 @@ const slotGame = require("./games/slot.js");
 const blackjackGame = require("./games/blackjack.js");
 const gachaGame = require("./games/gacha.js");
 const dailyGame = require("./games/daily.js");
+const ngachavip = require("./commands/ngachavip.js");
 
 // =========================
 // IMPORT COMMANDS
@@ -102,6 +103,9 @@ if (cmd === "nslot") return slotGame.execute(message, coins, saveCoins);
 if (cmd === "nxidach") return blackjackGame.execute(message, coins, saveCoins, client);
 if (cmd === "ngacha") return gachaGame.execute(message, coins, saveCoins, tickets, saveTickets);
 if (cmd === "ndaily") return dailyGame.execute(message, coins, saveCoins);
+if (cmd === "ngachavip") {
+  return ngachavip.execute(message, args, tickets, saveTickets);
+}
 
 // ECONOMY
 if (cmd === "ncoin") return ncoinCommand.execute(message, coins, tickets, dollars);
