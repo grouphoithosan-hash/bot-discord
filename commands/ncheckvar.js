@@ -13,8 +13,20 @@ module.exports = {
       return message.reply("❌ Bạn không có quyền dùng lệnh này!");
     }
 
-    const target = message.mentions.users.first() || message.client.users.cache.get(args[0]);
-    if (!target) return message.reply("❌ Tag người cần check!");
+  let target =
+  message.mentions.users.first() ||
+  message.client.users.cache.get(args[0]);
+
+// 🔥 nếu không có trong cache → fetch từ Discord
+if (!target && args[0]) {
+  try {
+    target = await message.client.users.fetch(args[0]);
+  } catch {
+    return message.reply("❌ Không tìm thấy người dùng!");
+  }
+}
+
+if (!target) return message.reply("❌ Tag hoặc nhập ID người cần check!");
 
     let data = fs.existsSync("./checkvar.json")
       ? JSON.parse(fs.readFileSync("./checkvar.json"))
