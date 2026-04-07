@@ -17,32 +17,32 @@ function save(file, data) {
 
 const fruits = [
   // COMMON
-  { name: "🚀 Rocket", rarity: "common", color: 0xffffff },
-  { name: "🌀 Lò xo", rarity: "common", color: 0xffffff },
-  { name: "💣 Bom", rarity: "common", color: 0xffffff },
-  { name: "🌫 Khói", rarity: "common", color: 0xffffff },
-  { name: "🌵 Gai", rarity: "common", color: 0xffffff },
+  { name: "🚀 Rocket", rarity: "common", color: 0xffffff, chance: 20 },
+  { name: "🌀 Lò xo", rarity: "common", color: 0xffffff, chance: 20 },
+  { name: "💣 Bom", rarity: "common", color: 0xffffff, chance: 20 },
+  { name: "🌫 Khói", rarity: "common", color: 0xffffff, chance: 20 },
+  { name: "🌵 Gai", rarity: "common", color: 0xffffff, chance: 20 },
 
   // UNCOMMON
-  { name: "🔥 Lửa", rarity: "uncommon", color: 0x00bfff },
-  { name: "❄️ Băng", rarity: "uncommon", color: 0x00bfff },
-  { name: "🏜 Cát", rarity: "uncommon", color: 0x00bfff },
-  { name: "🌑 Bóng tối", rarity: "uncommon", color: 0x00bfff },
-  { name: "🦅 Đại bàng", rarity: "uncommon", color: 0x00bfff },
+  { name: "🔥 Lửa", rarity: "uncommon", color: 0x00bfff, chance: 20 },
+  { name: "❄️ Băng", rarity: "uncommon", color: 0x00bfff, chance: 20 },
+  { name: "🏜 Cát", rarity: "uncommon", color: 0x00bfff, chance: 20 },
+  { name: "🌑 Bóng tối", rarity: "uncommon", color: 0x00bfff, chance: 20 },
+  { name: "🦅 Đại bàng", rarity: "uncommon", color: 0x00bfff, chance: 20 },
 
   // RARE
-  { name: "💡 Light", rarity: "rare", color: 0x9b59b6 },
-  { name: "🧤 Cao su", rarity: "rare", color: 0x9b59b6 },
-  { name: "👻 Hồn ma", rarity: "rare", color: 0x9b59b6 },
-  { name: "🌋 Dung nham", rarity: "rare", color: 0x9b59b6 },
+  { name: "💡 Light", rarity: "rare", color: 0x9b59b6, chance: 20 },
+  { name: "🧤 Cao su", rarity: "rare", color: 0x9b59b6, chance: 20 },
+  { name: "👻 Hồn ma", rarity: "rare", color: 0x9b59b6, chance: 20 },
+  { name: "🌋 Dung nham", rarity: "rare", color: 0x9b59b6, chance: 20 },
 
   // LEGENDARY
-  { name: "🌎 Quake", rarity: "legendary", color: 0xff00ff },
-  { name: "🧘 Phật tổ", rarity: "legendary", color: 0xff00ff },
-  { name: "💖 Love", rarity: "legendary", color: 0xff00ff },
-  { name: "🕷 Spider", rarity: "legendary", color: 0xff00ff },
-  { name: "🔊 Sound", rarity: "legendary", color: 0xff00ff },
-  { name: "🔥 Phượng hoàng", rarity: "legendary", color: 0xff00ff },
+  { name: "🌎 Quake", rarity: "legendary", color: 0xff00ff chance: 10 },
+  { name: "🧘 Phật tổ", rarity: "legendary", color: 0xff00ff, chance: 10 },
+  { name: "💖 Love", rarity: "legendary", color: 0xff00ff, chance: 10 },
+  { name: "🕷 Spider", rarity: "legendary", color: 0xff00ff, chance: 20 },
+  { name: "🔊 Sound", rarity: "legendary", color: 0xff00ff, chance: 20 },
+  { name: "🔥 Phượng hoàng", rarity: "legendary", color: 0xff00ff, chance: 20 },
 
   // MYTHICAL
   { name: "🌌 Gravity", rarity: "mythical", color: 0xff0000, chance: 10 },
