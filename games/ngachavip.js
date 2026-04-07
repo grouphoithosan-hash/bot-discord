@@ -16,64 +16,68 @@ function save(file, data) {
 // DANH SÁCH TRÁI
 
 const fruits = [
-  // COMMON
-  { name: "🚀 Rocket", rarity: "common", color: 0xffffff, chance: 20 },
-  { name: "🌀 Lò xo", rarity: "common", color: 0xffffff, chance: 20 },
-  { name: "💣 Bom", rarity: "common", color: 0xffffff, chance: 20 },
-  { name: "🌫 Khói", rarity: "common", color: 0xffffff, chance: 20 },
-  { name: "🌵 Gai", rarity: "common", color: 0xffffff, chance: 20 },
+// COMMON (50%)
+{ name: "🚀 Rocket", rarity: "common", color: 0xffffff, chance: 10 },
+{ name: "🌀 Lò xo", rarity: "common", color: 0xffffff, chance: 10 },
+{ name: "💣 Bom", rarity: "common", color: 0xffffff, chance: 10 },
+{ name: "🌫 Khói", rarity: "common", color: 0xffffff, chance: 10 },
+{ name: "🌵 Gai", rarity: "common", color: 0xffffff, chance: 10 },
 
-  // UNCOMMON
-  { name: "🔥 Lửa", rarity: "uncommon", color: 0x00bfff, chance: 20 },
-  { name: "❄️ Băng", rarity: "uncommon", color: 0x00bfff, chance: 20 },
-  { name: "🏜 Cát", rarity: "uncommon", color: 0x00bfff, chance: 20 },
-  { name: "🌑 Bóng tối", rarity: "uncommon", color: 0x00bfff, chance: 20 },
-  { name: "🦅 Đại bàng", rarity: "uncommon", color: 0x00bfff, chance: 20 },
+// UNCOMMON (25%)
+{ name: "🔥 Lửa", rarity: "uncommon", color: 0x00bfff, chance: 5 },
+{ name: "❄️ Băng", rarity: "uncommon", color: 0x00bfff, chance: 5 },
+{ name: "🏜 Cát", rarity: "uncommon", color: 0x00bfff, chance: 5 },
+{ name: "🌑 Bóng tối", rarity: "uncommon", color: 0x00bfff, chance: 5 },
+{ name: "🦅 Đại bàng", rarity: "uncommon", color: 0x00bfff, chance: 5 },
 
-  // RARE
-  { name: "💡 Light", rarity: "rare", color: 0x9b59b6, chance: 20 },
-  { name: "🧤 Cao su", rarity: "rare", color: 0x9b59b6, chance: 20 },
-  { name: "👻 Hồn ma", rarity: "rare", color: 0x9b59b6, chance: 20 },
-  { name: "🌋 Dung nham", rarity: "rare", color: 0x9b59b6, chance: 20 },
+// RARE (15%)
+{ name: "💡 Light", rarity: "rare", color: 0x9b59b6, chance: 3.75 },
+{ name: "🧤 Cao su", rarity: "rare", color: 0x9b59b6, chance: 3.75 },
+{ name: "👻 Hồn ma", rarity: "rare", color: 0x9b59b6, chance: 3.75 },
+{ name: "🌋 Dung nham", rarity: "rare", color: 0x9b59b6, chance: 3.75 },
 
-  // LEGENDARY
-  { name: "🌎 Quake", rarity: "legendary", color: 0xff00ff, chance: 10 },
-  { name: "🧘 Phật tổ", rarity: "legendary", color: 0xff00ff, chance: 10 },
-  { name: "💖 Love", rarity: "legendary", color: 0xff00ff, chance: 10 },
-  { name: "🕷 Spider", rarity: "legendary", color: 0xff00ff, chance: 20 },
-  { name: "🔊 Sound", rarity: "legendary", color: 0xff00ff, chance: 20 },
-  { name: "🔥 Phượng hoàng", rarity: "legendary", color: 0xff00ff, chance: 20 },
+// LEGENDARY (8%)
+{ name: "🌎 Quake", rarity: "legendary", color: 0xff00ff, chance: 1.33 },
+{ name: "🧘 Phật tổ", rarity: "legendary", color: 0xff00ff, chance: 1.33 },
+{ name: "💖 Love", rarity: "legendary", color: 0xff00ff, chance: 1.33 },
+{ name: "🕷 Spider", rarity: "legendary", color: 0xff00ff, chance: 1.33 },
+{ name: "🔊 Sound", rarity: "legendary", color: 0xff00ff, chance: 1.33 },
+{ name: "🔥 Phượng hoàng", rarity: "legendary", color: 0xff00ff, chance: 1.33 },
 
-  // MYTHICAL
-  { name: "🌌 Gravity", rarity: "mythical", color: 0xff0000, chance: 3 },
-  { name: "🐘 Voi ma mút", rarity: "mythical", color: 0xff0000, chance: 2 },
-  { name: "🦖 Khủng long", rarity: "mythical", color: 0xff0000, chance: 1 },
-  { name: "🧂 Bột", rarity: "mythical", color: 0xff0000, chance: 0.005 },
-  { name: "🌑 Dark", rarity: "mythical", color: 0xff0000, chance: 1 },
-  { name: "☠️ Độc", rarity: "mythical", color: 0xff0000, chance: 0.01 },
-  { name: "🌫 Gas", rarity: "mythical", color: 0xff0000, chance: 1 },
-  { name: "👻 Linh hồn", rarity: "mythical", color: 0xff0000, chance: 2 },
-  { name: "🐯 Tiger", rarity: "mythical", color: 0xff0000, chance: 0.000001 },
-  { name: "❄️ Yeti", rarity: "mythical", color: 0xff0000, chance: 0.0000001 },
-  { name: "🎮 Control", rarity: "mythical", color: 0xff0000, chance: 0.000003 }
+// MYTHICAL (2%)
+{ name: "🌌 Gravity", rarity: "mythical", color: 0xff0000, chance: 0.4 },
+{ name: "🐘 Voi ma mút", rarity: "mythical", color: 0xff0000, chance: 0.3 },
+{ name: "🦖 Khủng long", rarity: "mythical", color: 0xff0000, chance: 0.3 },
+{ name: "🧂 Bột", rarity: "mythical", color: 0xff0000, chance: 0.2 },
+{ name: "🌑 Dark", rarity: "mythical", color: 0xff0000, chance: 0.2 },
+{ name: "☠️ Độc", rarity: "mythical", color: 0xff0000, chance: 0.1 },
+{ name: "🌫 Gas", rarity: "mythical", color: 0xff0000, chance: 0.2 },
+{ name: "👻 Linh hồn", rarity: "mythical", color: 0xff0000, chance: 0.2 },
+{ name: "🐯 Tiger", rarity: "mythical", color: 0xff0000, chance: 0.02 },
+{ name: "❄️ Yeti", rarity: "mythical", color: 0xff0000, chance: 0.01 },
+{ name: "🎮 Control", rarity: "mythical", color: 0xff0000, chance: 0.01 }
 ];
 
 // =========================
 // RANDOM
 
 function rollFruit() {
-  const rand = Math.random() * 100;
+  // tính tổng tỉ lệ
+  const total = fruits.reduce((sum, f) => sum + f.chance, 0);
 
-  // ưu tiên mythic
+  // random theo tổng
+  const rand = Math.random() * total;
+
   let cumulative = 0;
-  for (const f of fruits.filter(x => x.rarity === "mythical")) {
-    cumulative += f.chance;
-    if (rand <= cumulative) return f;
-  }
 
-  // random còn lại
-  return fruits[Math.floor(Math.random() * fruits.length)];
+  for (const f of fruits) {
+    cumulative += f.chance;
+    if (rand <= cumulative) {
+      return f;
+    }
+  }
 }
+
 
 // =========================
 
