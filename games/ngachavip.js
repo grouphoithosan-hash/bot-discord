@@ -87,13 +87,18 @@ module.exports = {
     let tickets = load("./tickets.json");
     let inventory = load("./inventory.json");
 
-    if ((tickets[userId] || 0) < 1) {
-      return message.reply("❌ Bạn không đủ vé 🎟️ cày thêm đi phần thưởng ngon lắm");
-    }
+  // đảm bảo là số
+if (!tickets[userId]) tickets[userId] = 0;
 
-    // trừ vé
-    tickets[userId] -= 1;
-    save("./tickets.json", tickets);
+if (Number(tickets[userId]) < 1) {
+  return message.reply("❌ Bạn không đủ vé 🎟️ cày thêm đi phần thưởng ngon lắm");
+}
+
+// trừ vé chuẩn
+tickets[userId] = Number(tickets[userId]) - 1;
+
+save("./tickets.json", tickets);
+
 
     const fruit = rollFruit();
 
@@ -125,15 +130,18 @@ module.exports = {
 
     message.reply({ embeds: [embed] });
 
-    // =========================
-    // LOG ( THAY ID KÊNH )
+   // =========================  
+// LOG GLOBAL (fix mọi server)
 
-   const logChannel = message.guild.channels.cache.get("1491036052994002994");
+const logChannel = await message.client.channels
+  .fetch("1491036052994002994")
+  .catch(() => null);
 
-    if (logChannel) {
-      logChannel.send(
-        `📢 ${message.author} vừa gachavip và ra được ${fruit.name}`
-      );
-    }
+if (logChannel) {
+  logChannel.send(
+    `📢 ${message.author.tag} (${message.guild?.name || "DM"}) vừa gachavip và ra ${fruit.name}`
+  );
+}
+
   }
 };
