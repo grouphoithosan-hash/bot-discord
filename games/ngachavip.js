@@ -45,17 +45,17 @@ const fruits = [
   { name: "🔥 Phượng hoàng", rarity: "legendary", color: 0xff00ff, chance: 20 },
 
   // MYTHICAL
-  { name: "🌌 Gravity", rarity: "mythical", color: 0xff0000, chance: 10 },
-  { name: "🐘 Voi ma mút", rarity: "mythical", color: 0xff0000, chance: 9.23 },
-  { name: "🦖 Khủng long", rarity: "mythical", color: 0xff0000, chance: 6 },
-  { name: "🧂 Bột", rarity: "mythical", color: 0xff0000, chance: 3 },
+  { name: "🌌 Gravity", rarity: "mythical", color: 0xff0000, chance: 3 },
+  { name: "🐘 Voi ma mút", rarity: "mythical", color: 0xff0000, chance: 2 },
+  { name: "🦖 Khủng long", rarity: "mythical", color: 0xff0000, chance: 1 },
+  { name: "🧂 Bột", rarity: "mythical", color: 0xff0000, chance: 0.005 },
   { name: "🌑 Dark", rarity: "mythical", color: 0xff0000, chance: 1 },
   { name: "☠️ Độc", rarity: "mythical", color: 0xff0000, chance: 0.01 },
   { name: "🌫 Gas", rarity: "mythical", color: 0xff0000, chance: 1 },
   { name: "👻 Linh hồn", rarity: "mythical", color: 0xff0000, chance: 2 },
-  { name: "🐯 Tiger", rarity: "mythical", color: 0xff0000, chance: 0.001 },
-  { name: "❄️ Yeti", rarity: "mythical", color: 0xff0000, chance: 0.001 },
-  { name: "🎮 Control", rarity: "mythical", color: 0xff0000, chance: 0.0003 }
+  { name: "🐯 Tiger", rarity: "mythical", color: 0xff0000, chance: 0.000001 },
+  { name: "❄️ Yeti", rarity: "mythical", color: 0xff0000, chance: 0.0000001 },
+  { name: "🎮 Control", rarity: "mythical", color: 0xff0000, chance: 0.000003 }
 ];
 
 // =========================
