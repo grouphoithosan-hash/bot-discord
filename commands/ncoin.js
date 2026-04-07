@@ -6,13 +6,19 @@ const fs = require("fs");
 module.exports = {
   name: "ncoin",
 
-  async execute(message, coins, tickets) {
+  async execute(message, coins) {
     const user = message.author;
 
-    // 🔥 FIX: LOAD LẠI MỖI LẦN
+    // load dollars
     let dollars = {};
     if (fs.existsSync("./dollars.json")) {
       dollars = JSON.parse(fs.readFileSync("./dollars.json"));
+    }
+
+    // 🔥 FIX tickets
+    let tickets = {};
+    if (fs.existsSync("./tickets.json")) {
+      tickets = JSON.parse(fs.readFileSync("./tickets.json"));
     }
 
     const userCoins = coins[user.id] || 0;
