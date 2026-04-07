@@ -34,6 +34,8 @@ const ncoinCommand = require("./commands/ncoin.js");
 const ntopCommand = require("./commands/ntop.js");
 const nmeCommand = require("./commands/nme.js");
 const nthongbaoCommand = require("./commands/nthongbao.js");
+const ncheckvar = require("./commands/ncheckvar.js");
+const nketqua = require("./commands/nketqua.js");
 
 // =========================
 // CODE SYSTEM
