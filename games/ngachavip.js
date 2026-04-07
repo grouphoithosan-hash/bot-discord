@@ -128,14 +128,12 @@ module.exports = {
     // =========================
     // LOG ( THAY ID KÊNH )
 
-   try {
-  const logChannel = await message.client.channels.fetch("1491036052994002994");
+   const logChannel = message.guild.channels.cache.get("1491036052994002994");
 
-  if (logChannel) {
-    logChannel.send(
-      `📢 ${message.author.tag} vừa gachavip và ra được ${fruit.name}`
-    );
+    if (logChannel) {
+      logChannel.send(
+        `📢 ${message.author} vừa gachavip và ra được ${fruit.name}`
+      );
+    }
   }
-} catch (err) {
-  console.log("❌ Không gửi được log:", err.message);
-}
+};
