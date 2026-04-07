@@ -1,92 +1,78 @@
-const { EmbedBuilder } = require("discord.js");
 const fs = require("fs");
+const { EmbedBuilder } = require("discord.js");
 
 // =========================
-// LOAD DATA
+// DATA LOAD
 
-let tickets = fs.existsSync("./tickets.json")
-  ? JSON.parse(fs.readFileSync("./tickets.json"))
-  : {};
-
-let inventory = fs.existsSync("./inventory.json")
-  ? JSON.parse(fs.readFileSync("./inventory.json"))
-  : {};
-
-function saveTickets() {
-  fs.writeFileSync("./tickets.json", JSON.stringify(tickets, null, 2));
+function load(file) {
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file)) : {};
 }
 
-function saveInventory() {
-  fs.writeFileSync("./inventory.json", JSON.stringify(inventory, null, 2));
+function save(file, data) {
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
 }
 
 // =========================
-// ITEM LIST
+// DANH SÁCH TRÁI
 
 const fruits = [
-  // COMMON ⚪
-  { name: "🚀 Rocket", rarity: "common", chance: 25 },
-  { name: "🌀 Lò xo", rarity: "common", chance: 25 },
-  { name: "💣 Bom", rarity: "common", chance: 25 },
-  { name: "🌫️ Khói", rarity: "common", chance: 25 },
+  // COMMON
+  { name: "🚀 Rocket", rarity: "common", color: 0xffffff },
+  { name: "🌀 Lò xo", rarity: "common", color: 0xffffff },
+  { name: "💣 Bom", rarity: "common", color: 0xffffff },
+  { name: "🌫 Khói", rarity: "common", color: 0xffffff },
+  { name: "🌵 Gai", rarity: "common", color: 0xffffff },
 
-  // UNCOMMON 🔵
-  { name: "🔥 Lửa", rarity: "uncommon", chance: 15 },
-  { name: "❄️ Băng", rarity: "uncommon", chance: 15 },
-  { name: "🏜️ Cát", rarity: "uncommon", chance: 15 },
-  { name: "🌑 Bóng tối", rarity: "uncommon", chance: 15 },
+  // UNCOMMON
+  { name: "🔥 Lửa", rarity: "uncommon", color: 0x00bfff },
+  { name: "❄️ Băng", rarity: "uncommon", color: 0x00bfff },
+  { name: "🏜 Cát", rarity: "uncommon", color: 0x00bfff },
+  { name: "🌑 Bóng tối", rarity: "uncommon", color: 0x00bfff },
+  { name: "🦅 Đại bàng", rarity: "uncommon", color: 0x00bfff },
 
-  // RARE 🟣
-  { name: "💡 Light", rarity: "rare", chance: 10 },
-  { name: "🧪 Cao su", rarity: "rare", chance: 10 },
-  { name: "👻 Hồn ma", rarity: "rare", chance: 10 },
-  { name: "🌋 Dung nham", rarity: "rare", chance: 10 },
+  // RARE
+  { name: "💡 Light", rarity: "rare", color: 0x9b59b6 },
+  { name: "🧤 Cao su", rarity: "rare", color: 0x9b59b6 },
+  { name: "👻 Hồn ma", rarity: "rare", color: 0x9b59b6 },
+  { name: "🌋 Dung nham", rarity: "rare", color: 0x9b59b6 },
 
-  // LEGENDARY 💗
-  { name: "🌍 Quake", rarity: "legendary", chance: 5 },
-  { name: "🧘 Phật tổ", rarity: "legendary", chance: 5 },
-  { name: "💖 Love", rarity: "legendary", chance: 5 },
-  { name: "🕷️ Spider", rarity: "legendary", chance: 5 },
+  // LEGENDARY
+  { name: "🌎 Quake", rarity: "legendary", color: 0xff00ff },
+  { name: "🧘 Phật tổ", rarity: "legendary", color: 0xff00ff },
+  { name: "💖 Love", rarity: "legendary", color: 0xff00ff },
+  { name: "🕷 Spider", rarity: "legendary", color: 0xff00ff },
+  { name: "🔊 Sound", rarity: "legendary", color: 0xff00ff },
+  { name: "🔥 Phượng hoàng", rarity: "legendary", color: 0xff00ff },
 
-  // SECRET ⚡
-  { name: "⚡ Lightning", rarity: "secret", chance: 0.0001 },
-
-  // MYTHICAL 🔴
-  { name: "🌌 Gravity", rarity: "mythical", chance: 10 },
-  { name: "🐘 Voi ma mút", rarity: "mythical", chance: 9.23 },
-  { name: "🦖 Khủng long", rarity: "mythical", chance: 6 },
-  { name: "☁️ Bột", rarity: "mythical", chance: 3 },
-  { name: "☠️ Độc", rarity: "mythical", chance: 0.01 },
-  { name: "💨 Gas", rarity: "mythical", chance: 1 },
-  { name: "👻 Linh hồn", rarity: "mythical", chance: 2 },
-  { name: "🐯 Tiger", rarity: "mythical", chance: 0.001 },
-  { name: "❄️ Yeti", rarity: "mythical", chance: 0.001 },
-  { name: "🎮 Control", rarity: "mythical", chance: 0.0003 }
+  // MYTHICAL
+  { name: "🌌 Gravity", rarity: "mythical", color: 0xff0000, chance: 10 },
+  { name: "🐘 Voi ma mút", rarity: "mythical", color: 0xff0000, chance: 9.23 },
+  { name: "🦖 Khủng long", rarity: "mythical", color: 0xff0000, chance: 6 },
+  { name: "🧂 Bột", rarity: "mythical", color: 0xff0000, chance: 3 },
+  { name: "🌑 Dark", rarity: "mythical", color: 0xff0000, chance: 1 },
+  { name: "☠️ Độc", rarity: "mythical", color: 0xff0000, chance: 0.01 },
+  { name: "🌫 Gas", rarity: "mythical", color: 0xff0000, chance: 1 },
+  { name: "👻 Linh hồn", rarity: "mythical", color: 0xff0000, chance: 2 },
+  { name: "🐯 Tiger", rarity: "mythical", color: 0xff0000, chance: 0.001 },
+  { name: "❄️ Yeti", rarity: "mythical", color: 0xff0000, chance: 0.001 },
+  { name: "🎮 Control", rarity: "mythical", color: 0xff0000, chance: 0.0003 }
 ];
 
 // =========================
-// RANDOM FUNCTION
+// RANDOM
 
 function rollFruit() {
-  const total = fruits.reduce((sum, f) => sum + f.chance, 0);
-  let rand = Math.random() * total;
+  const rand = Math.random() * 100;
 
-  for (let f of fruits) {
-    if (rand < f.chance) return f;
-    rand -= f.chance;
+  // ưu tiên mythic
+  let cumulative = 0;
+  for (const f of fruits.filter(x => x.rarity === "mythical")) {
+    cumulative += f.chance;
+    if (rand <= cumulative) return f;
   }
-}
 
-// =========================
-// COLOR
-
-function getColor(rarity) {
-  if (rarity === "common") return 0xffffff;
-  if (rarity === "uncommon") return 0x3498db;
-  if (rarity === "rare") return 0x9b59b6;
-  if (rarity === "legendary") return 0xff66cc;
-  if (rarity === "mythical") return 0xff0000;
-  if (rarity === "secret") return 0xffff00;
+  // random còn lại
+  return fruits[Math.floor(Math.random() * fruits.length)];
 }
 
 // =========================
@@ -98,81 +84,56 @@ module.exports = {
 
     const userId = message.author.id;
 
-    // check vé
+    let tickets = load("./tickets.json");
+    let inventory = load("./inventory.json");
+
     if ((tickets[userId] || 0) < 1) {
-      return message.reply("❌ Bạn không đủ 🎟️ vé");
+      return message.reply("❌ Bạn không đủ vé 🎟️");
     }
 
     // trừ vé
     tickets[userId] -= 1;
-    saveTickets();
+    save("./tickets.json", tickets);
 
-    // quay
     const fruit = rollFruit();
 
-    // save inventory
+    // lưu inventory
     if (!inventory[userId]) inventory[userId] = [];
 
     inventory[userId].push({
       id: Date.now(),
       name: fruit.name,
-      type: "fruit",
-      rarity: fruit.rarity
+      rarity: fruit.rarity,
+      emoji: fruit.name.split(" ")[0]
     });
 
-    saveInventory();
-
-    // =========================
-    // EFFECT TEXT
-
-    let text = `🎰 Bạn quay ra: **${fruit.name}**`;
-
-    if (fruit.rarity === "mythical") {
-      text =
-`💥 OMGGGGG!!!
-Hình như bạn trúng **MYTHIC** 😱
-
-🔥 ${fruit.name}
-
-☠️ NỔ HŨ TOOO!!!`;
-    }
-
-    if (fruit.rarity === "legendary") {
-      text = `🌟 WOW!! Legendary xuất hiện: ${fruit.name}`;
-    }
-
-    if (fruit.rarity === "rare") {
-      text = `✨ Bạn khá may mắn: ${fruit.name}`;
-    }
-
-    if (fruit.rarity === "common") {
-      text = `🙂 Bình thường thôi: ${fruit.name}`;
-    }
+    save("./inventory.json", inventory);
 
     // =========================
     // EMBED
 
-    const embed = new EmbedBuilder()
-      .setColor(getColor(fruit.rarity))
-      .setTitle("🎰 GACHA VIP")
-      .setDescription(text)
-      .setFooter({ text: "Cappy Gacha System" });
+    let desc = `🎰 Bạn nhận được: **${fruit.name}**`;
 
-    await message.reply({ embeds: [embed] });
+    if (fruit.rarity === "mythical") {
+      desc = `💥 OMGGGGG!!!\n☠️ NỔ HŨ TO!!!\nBạn trúng **${fruit.name}**`;
+    }
+
+    const embed = new EmbedBuilder()
+      .setColor(fruit.color)
+      .setTitle("🎰 GACHA VIP")
+      .setDescription(desc);
+
+    message.reply({ embeds: [embed] });
 
     // =========================
-    // LOG CHANNEL
+    // LOG (1491036052994002994)
 
-    const logChannelId = "ID_KENH_LOG"; // 👈 THAY ID
-
-    const logChannel = message.guild.channels.cache.get(logChannelId);
+    const logChannel = message.guild.channels.cache.get("YOUR_CHANNEL_ID");
 
     if (logChannel) {
       logChannel.send(
-`📢 ${message.author} vừa gachavip và ra được ${fruit.name}
-🎁 Hãy trao quà cho thành viên nhanh!`
+        `📢 ${message.author} vừa gachavip và ra được ${fruit.name}`
       );
     }
-
   }
 };
