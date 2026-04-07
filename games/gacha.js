@@ -38,7 +38,7 @@ module.exports = {
     let rewardCoin = 0;
     let rewardTicket = 0;
 
-    if (roll < 0.001) {
+    if (roll < 5) {
       result = "Mythic";
       rewardCoin = 200;
       rewardTicket = 1;
