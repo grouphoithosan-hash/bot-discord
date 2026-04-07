@@ -126,9 +126,9 @@ module.exports = {
     message.reply({ embeds: [embed] });
 
     // =========================
-    // LOG (1491036052994002994)
+    // LOG ( THAY ID KÊNH )
 
-    const logChannel = message.guild.channels.cache.get("YOUR_CHANNEL_ID");
+    const logChannel = message.guild.channels.cache.get("1491036052994002994");
 
     if (logChannel) {
       logChannel.send(
