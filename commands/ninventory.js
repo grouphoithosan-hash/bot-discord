@@ -6,7 +6,6 @@ module.exports = {
 
   async execute(ctx) {
 
-    // 🔥 auto detect message hoặc interaction
     const user = ctx.user || ctx.author;
 
     const inventory = fs.existsSync("./inventory.json")
@@ -23,11 +22,12 @@ module.exports = {
       embed.setDescription("❌ Bạn chưa có vật phẩm nào");
     } else {
       embed.setDescription(
-        items.map((item, i) => `${i + 1}. ${item.name}`).join("\n")
+        items.map((item, i) =>
+          `${i + 1}. ${item.emoji || "📦"} ${item.name} (${item.rarity})`
+        ).join("\n")
       );
     }
 
-    // 🔥 reply đúng kiểu
     if (ctx.reply) {
       return ctx.reply({ embeds: [embed], ephemeral: true });
     } else {
