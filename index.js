@@ -16,7 +16,7 @@ const slotGame = require("./games/slot.js");
 const blackjackGame = require("./games/blackjack.js");
 const gachaGame = require("./games/gacha.js");
 const dailyGame = require("./games/daily.js");
-const ngachavip = require("./commands/ngachavip.js");
+const ngachavip = require("./games/ngachavip.js");
 
 // =========================
 // IMPORT COMMANDS
