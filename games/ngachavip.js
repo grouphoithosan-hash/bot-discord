@@ -88,7 +88,7 @@ module.exports = {
     let inventory = load("./inventory.json");
 
     if ((tickets[userId] || 0) < 1) {
-      return message.reply("❌ Bạn không đủ vé 🎟️");
+      return message.reply("❌ Bạn không đủ vé 🎟️ cày thêm đi phần thưởng ngon lắm");
     }
 
     // trừ vé
