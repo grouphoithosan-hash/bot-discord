@@ -37,7 +37,7 @@ const fruits = [
   { name: "🌋 Dung nham", rarity: "rare", color: 0x9b59b6, chance: 20 },
 
   // LEGENDARY
-  { name: "🌎 Quake", rarity: "legendary", color: 0xff00ff chance: 10 },
+  { name: "🌎 Quake", rarity: "legendary", color: 0xff00ff, chance: 10 },
   { name: "🧘 Phật tổ", rarity: "legendary", color: 0xff00ff, chance: 10 },
   { name: "💖 Love", rarity: "legendary", color: 0xff00ff, chance: 10 },
   { name: "🕷 Spider", rarity: "legendary", color: 0xff00ff, chance: 20 },
