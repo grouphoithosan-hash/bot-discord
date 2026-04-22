@@ -36,7 +36,7 @@ const nmeCommand = require("./commands/nme.js");
 const nthongbaoCommand = require("./commands/nthongbao.js");
 const ncheckvar = require("./commands/ncheckvar.js");
 const nketqua = require("./commands/nketqua.js");
-const { getOrCreateID } = require("./cappyId");
+const { getOrCreateID } = require("./commands/cappyId");
 
 // =========================
 // CODE SYSTEM
