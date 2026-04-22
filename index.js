@@ -26,7 +26,6 @@ const ntraodoiCommand = require("./commands/ntraodoi.js");
 // SYSTEMS
 const giveaway = require("./giveaway.js");
 const banSystem = require("./commands/ban.js");
-const cappyId = require("./cappyId");
 
 // =========================
 // COMMANDS
