@@ -26,6 +26,7 @@ const ntraodoiCommand = require("./commands/ntraodoi.js");
 // SYSTEMS
 const giveaway = require("./giveaway.js");
 const banSystem = require("./commands/ban.js");
+const cappyId = require("./cappyId");
 
 // =========================
 // COMMANDS
@@ -36,7 +37,6 @@ const nmeCommand = require("./commands/nme.js");
 const nthongbaoCommand = require("./commands/nthongbao.js");
 const ncheckvar = require("./commands/ncheckvar.js");
 const nketqua = require("./commands/nketqua.js");
-const { getOrCreateID } = require("./commands/cappyId");
 
 // =========================
 // CODE SYSTEM
