@@ -11,6 +11,10 @@ ButtonStyle
 const fs = require("fs");
 
 // =========================
+// 🔥 IMPORT NẮP BẬT/TẮT BOT
+const nbot = require("./commands/nbot.js");
+
+// =========================
 // IMPORT GAMES
 const slotGame = require("./games/slot.js");
 const blackjackGame = require("./games/blackjack.js");
@@ -109,10 +113,27 @@ if (await banSystem.checkBan(message)) return;
 const args = message.content.slice(PREFIX.length).trim().split(/ +/);
 const cmd = args.shift().toLowerCase();
 
+// =========================
+// 🔥 CHẶN BOT THEO KÊNH
+
+if (nbot.isDisabled(message.channel.id) && cmd !== "non") {
+  const msg = await message.reply("⚠️ Bot đã tắt trong kênh này!");
+  setTimeout(() => msg.delete().catch(() => {}), 6000);
+  return;
+}
+
+// =========================
+// 🔴 TẮT / 🟢 BẬT BOT
+
+if (cmd === "noff") return nbot.off(message);
+if (cmd === "non") return nbot.on(message);
+
+// =========================
 // BAN
 if (cmd === "nban") return banSystem.handleBan(message, args);
 if (cmd === "nunban") return banSystem.handleUnban(message, args);
 
+// =========================
 // GAMES
 if (cmd === "nslot") return slotGame.execute(message, coins, saveCoins);
 if (cmd === "nxidach") return blackjackGame.execute(message, coins, saveCoins, client);
@@ -120,6 +141,7 @@ if (cmd === "ngacha") return gachaGame.execute(message, coins, saveCoins, ticket
 if (cmd === "ndaily") return dailyGame.execute(message, coins, saveCoins);
 if (cmd === "ngachavip") return ngachavip.execute(message, args, tickets, saveTickets);
 
+// =========================
 // ECONOMY
 if (cmd === "ncoin") return ncoinCommand.execute(message, coins, tickets, dollars);
 if (cmd === "ntop") return ntopCommand.execute(message);
@@ -128,22 +150,26 @@ if (cmd === "ngive") return ngiveCommand.execute(message, args, coins, tickets, 
 if (cmd === "ncheckvar") return ncheckvar.execute(message, args);
 if (cmd === "nketqua") return nketqua.execute(message, args);
 
+// =========================
 // CODE
 if (cmd === "ncreatecode") return ncreatecodeCommand.execute(message, args);
 if (cmd === "nredeemcode") {
 return nredeemcodeCommand.execute(message, args, coins, tickets, dollars, saveCoins, saveTickets, saveDollars);
 }
 
+// =========================
 // TRAO ĐỔI
 if (cmd === "ntraodoi") {
 return ntraodoiCommand.execute(message, args, coins, dollars, saveCoins, saveDollars);
 }
 
+// =========================
 // LOAN
 if (cmd === "nvay") return loanSystem.borrow(message, args, coins, saveCoins);
 if (cmd === "nno") return loanSystem.info(message);
 if (cmd === "ntrano") return loanSystem.pay(message, args, coins, saveCoins);
 
+// =========================
 // GIVEAWAY
 if (cmd === "ngiveaway") {
 const time = args[args.length - 1];
@@ -152,9 +178,11 @@ if (!time || !prize) return message.reply("❌ Sai cú pháp");
 return giveaway.createGiveaway(message, prize, time);
 }
 
+// =========================
 // THÔNG BÁO
 if (cmd === "nthongbao") return nthongbaoCommand.execute(message, args);
 
+// =========================
 // HELP
 if (cmd === "helps") {
 const embed = new EmbedBuilder()
@@ -206,7 +234,7 @@ ephemeral: true
 });
 
 // =========================
-// 🔥 AUTO SAVE (QUAN TRỌNG)
+// 🔥 AUTO SAVE
 
 process.on("SIGINT", () => {
 console.log("💾 Đang lưu dữ liệu...");
