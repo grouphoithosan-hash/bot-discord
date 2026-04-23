@@ -9,17 +9,33 @@ module.exports = {
   async execute(message, coins) {
     const user = message.author;
 
-    // load dollars
+    // =========================
+    // 🔥 FIX LOAD DOLLARS
+
     let dollars = {};
-    if (fs.existsSync("./dollars.json")) {
-      dollars = JSON.parse(fs.readFileSync("./dollars.json"));
+    try {
+      if (fs.existsSync("./dollars.json")) {
+        dollars = JSON.parse(fs.readFileSync("./dollars.json", "utf8"));
+      }
+    } catch (err) {
+      console.error("❌ Lỗi load dollars:", err);
+      dollars = {};
     }
 
-    // 🔥 FIX tickets
+    // =========================
+    // 🔥 FIX LOAD TICKETS
+
     let tickets = {};
-    if (fs.existsSync("./tickets.json")) {
-      tickets = JSON.parse(fs.readFileSync("./tickets.json"));
+    try {
+      if (fs.existsSync("./tickets.json")) {
+        tickets = JSON.parse(fs.readFileSync("./tickets.json", "utf8"));
+      }
+    } catch (err) {
+      console.error("❌ Lỗi load tickets:", err);
+      tickets = {};
     }
+
+    // =========================
 
     const userCoins = coins[user.id] || 0;
     const userTickets = tickets[user.id] || 0;
