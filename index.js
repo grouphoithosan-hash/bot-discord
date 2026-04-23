@@ -125,8 +125,9 @@ if (nbot.isDisabled(message.channel.id) && cmd !== "non") {
 // =========================
 // 🔴 TẮT / 🟢 BẬT BOT
 
-if (cmd === "noff") return nbot.off(message);
-if (cmd === "non") return nbot.on(message);
+if (cmd === "noff" || cmd === "non") {
+  return nbot.execute(message, cmd);
+}
 
 // =========================
 // BAN
