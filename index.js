@@ -61,22 +61,35 @@ partials: [Partials.Channel]
 const PREFIX = ".";
 
 // =========================
-// DATA
+// 🔥 DATA FIX KHÔNG MẤT
 
-let coins = fs.existsSync("./coins.json") ? JSON.parse(fs.readFileSync("./coins.json")) : {};
-let dollars = fs.existsSync("./dollars.json") ? JSON.parse(fs.readFileSync("./dollars.json")) : {};
-let tickets = fs.existsSync("./tickets.json") ? JSON.parse(fs.readFileSync("./tickets.json")) : {};
+function loadJSON(file) {
+  try {
+    if (!fs.existsSync(file)) return {};
+    return JSON.parse(fs.readFileSync(file, "utf8"));
+  } catch (err) {
+    console.error(`❌ Lỗi load ${file}:`, err);
+    return {};
+  }
+}
+
+let coins = loadJSON("./coins.json");
+let dollars = loadJSON("./dollars.json");
+let tickets = loadJSON("./tickets.json");
+
+// =========================
+// SAVE
 
 function saveCoins() {
-fs.writeFileSync("./coins.json", JSON.stringify(coins, null, 2));
+  fs.writeFileSync("./coins.json", JSON.stringify(coins, null, 2));
 }
 
 function saveDollars() {
-fs.writeFileSync("./dollars.json", JSON.stringify(dollars, null, 2));
+  fs.writeFileSync("./dollars.json", JSON.stringify(dollars, null, 2));
 }
 
 function saveTickets() {
-fs.writeFileSync("./tickets.json", JSON.stringify(tickets, null, 2));
+  fs.writeFileSync("./tickets.json", JSON.stringify(tickets, null, 2));
 }
 
 // =========================
@@ -105,9 +118,7 @@ if (cmd === "nslot") return slotGame.execute(message, coins, saveCoins);
 if (cmd === "nxidach") return blackjackGame.execute(message, coins, saveCoins, client);
 if (cmd === "ngacha") return gachaGame.execute(message, coins, saveCoins, tickets, saveTickets);
 if (cmd === "ndaily") return dailyGame.execute(message, coins, saveCoins);
-if (cmd === "ngachavip") {
-  return ngachavip.execute(message, args, tickets, saveTickets);
-}
+if (cmd === "ngachavip") return ngachavip.execute(message, args, tickets, saveTickets);
 
 // ECONOMY
 if (cmd === "ncoin") return ncoinCommand.execute(message, coins, tickets, dollars);
@@ -141,13 +152,9 @@ if (!time || !prize) return message.reply("❌ Sai cú pháp");
 return giveaway.createGiveaway(message, prize, time);
 }
 
-// =========================
 // THÔNG BÁO
-if (cmd === "nthongbao") {
-return nthongbaoCommand.execute(message, args);
-}
+if (cmd === "nthongbao") return nthongbaoCommand.execute(message, args);
 
-// =========================
 // HELP
 if (cmd === "helps") {
 const embed = new EmbedBuilder()
@@ -173,39 +180,43 @@ return message.reply({ embeds: [embed], components: [row] });
 });
 
 // =========================
-// ✅ FIX BUTTON (THÊM MỚI)
+// BUTTON
 
 client.on("interactionCreate", async (interaction) => {
-  if (!interaction.isButton()) return;
+if (!interaction.isButton()) return;
 
-  // =====================
-  // 📩 APPEAL BUTTON
+if (interaction.customId === "appeal") {
+return interaction.reply({
+content: "📩 Liên hệ admin để kháng cáo nhé!",
+ephemeral: true
+});
+}
 
-  if (interaction.customId === "appeal") {
-    return interaction.reply({
-      content: "📩 Liên hệ admin để kháng cáo nhé!",
-      ephemeral: true
-    });
-  }
-
-  // =====================
-  // 🎁 GIVEAWAY BUTTON FIX
-
-  if (interaction.customId === "join_giveaway") {
-    try {
-      return giveaway.handleJoin(interaction);
-    } catch (err) {
-      console.error(err);
-      return interaction.reply({
-        content: "❌ Giveaway bị lỗi!",
-        ephemeral: true
-      });
-    }
-  }
-
+if (interaction.customId === "join_giveaway") {
+try {
+return giveaway.handleJoin(interaction);
+} catch (err) {
+console.error(err);
+return interaction.reply({
+content: "❌ Giveaway bị lỗi!",
+ephemeral: true
+});
+}
+}
 });
 
+// =========================
+// 🔥 AUTO SAVE (QUAN TRỌNG)
 
+process.on("SIGINT", () => {
+console.log("💾 Đang lưu dữ liệu...");
+saveCoins();
+saveDollars();
+saveTickets();
+process.exit();
+});
+
+// =========================
 
 console.log("TOKEN:", process.env.TOKEN);
 client.login(process.env.TOKEN);
