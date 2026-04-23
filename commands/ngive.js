@@ -35,7 +35,7 @@ module.exports = {
       amount = parseInt(rawAmount.slice(0, -1));
     }
 
-    if (!type || isNaN(amount)) {
+    if (!type || isNaN(amount) || amount <= 0) {
       return message.reply("❌ Sai định dạng. Ví dụ: 1c hoặc 1t");
     }
 
@@ -90,19 +90,37 @@ __Lưu ý: nếu lệnh lỗi hãy kiểm tra **${type}** trước khi thử l�
 
     collector.on("collect", async (interaction) => {
 
+      if (interaction.user.id !== sender.id) {
+        return interaction.reply({
+          content: "❌ Không phải bạn",
+          ephemeral: true
+        });
+      }
+
       // =========================
       if (interaction.customId === `confirm_${sender.id}`) {
 
+        // 🔥 FIX QUAN TRỌNG: đảm bảo có key
+        if (!coins[sender.id]) coins[sender.id] = 0;
+        if (!coins[user.id]) coins[user.id] = 0;
+
+        if (!tickets[sender.id]) tickets[sender.id] = 0;
+        if (!tickets[user.id]) tickets[user.id] = 0;
+
+        // =========================
+
         if (type === "coin") {
           coins[sender.id] -= amount;
-          coins[user.id] = (coins[user.id] || 0) + amount;
-          saveCoins();
+          coins[user.id] += amount;
+
+          saveCoins(); // ✅ LƯU
         }
 
         if (type === "ticket") {
           tickets[sender.id] -= amount;
-          tickets[user.id] = (tickets[user.id] || 0) + amount;
-          saveTickets();
+          tickets[user.id] += amount;
+
+          saveTickets(); // ✅ LƯU
         }
 
         const successEmbed = new EmbedBuilder()
@@ -111,14 +129,10 @@ __Lưu ý: nếu lệnh lỗi hãy kiểm tra **${type}** trước khi thử l�
 `✅ ${sender} đã chuyển **${amount} ${type === "coin" ? "🪙" : "🎟️"}** cho ${user} thành công`
           );
 
-        try {
-          return await interaction.update({
-            embeds: [successEmbed],
-            components: []
-          });
-        } catch (err) {
-          console.log("Update error:", err.message);
-        }
+        return interaction.update({
+          embeds: [successEmbed],
+          components: []
+        });
       }
 
       // =========================
@@ -128,19 +142,14 @@ __Lưu ý: nếu lệnh lỗi hãy kiểm tra **${type}** trước khi thử l�
           .setColor(0xff0000)
           .setDescription(`❌ ${sender} đã hủy giao dịch`);
 
-        try {
-          return await interaction.update({
-            embeds: [cancelEmbed],
-            components: []
-          });
-        } catch (err) {
-          console.log("Cancel update error:", err.message);
-        }
+        return interaction.update({
+          embeds: [cancelEmbed],
+          components: []
+        });
       }
     });
 
     // =========================
-    // FIX CHANNEL NOT CACHED
 
     collector.on("end", async () => {
       try {
