@@ -1,7 +1,7 @@
 const fs = require("fs");
 const { EmbedBuilder } = require("discord.js");
 
-const OWNER_ID = "ID_CUA_BAN"; // 🔥 thay ID của bạn
+const OWNER_ID = "1496861958723600394"; // 🔥 thay ID của bạn
 
 // =========================
 // LOAD
